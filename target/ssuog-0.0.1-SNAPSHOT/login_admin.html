@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1, width=device-width" />
+	<title>Admin Login</title>
+	<!--CSS-->
+	<link rel="stylesheet"href="js/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet"href="css/customStyles.css">
+	<!--JS-->
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body data-role="page" onload="">
+	<!--backgroud pictures-->
+	<ul class="slideshow">
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+	</ul>
+	<!--login panel-->
+	<div id="pageLogin" class="login-pnl">
+		<div data-role="main" class="ui-content">
+			<!--Login successfully, jump to the page: index_admin.html-->
+			<!--<form method="get" action="index_admin.html">-->
+				<div class="hd">Spatial Skill <span class="red">UoG</span></div>
+				<div class="login-tips undis">fail to login !</div>
+				<div class="ui-field-contain">
+					<label for="name">Admin ID</label>
+					<input type="text" name="name" id="name" placeholder="guid">
+				</div>
+				<div class="ui-field-contain">
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" placeholder="password">
+				</div>
+				<div class="btns-wrap">
+					<button data-role="button" data-transition="flow" class="ui-btn ui-corner-all ui-btn-active js-btn-ok">Log in with your GUID</button>
+					<a data-ajax="false" href="login.html" data-role="" data-transition="flip" class="ui-link">Back</a>
+				</div>
+			<!--</form>-->
+			<!--Pop-up prompts-->
+			<a href="#popupCloseRight" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline undis" id="btn-tips">show popup</a>
+			<div data-role="popup" id="popupCloseRight" class="ui-content" style="max-width:480px">
+				    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+				<p class="tips-con"></p>
+			</div>
+		</div>
+	</div>
+
+	<script>
+        $(function(){
+
+            //login
+            $('body').on('click', '.js-btn-ok', function () {
+                var name = $('#name').val()||'';
+                var psw = $('#password').val() || '';
+
+				$.ajax({
+					url: "/user/login.do",
+					type: "post",
+					data: {"guid": name, "password": psw},
+//                        async: false,
+					dataType: "json",
+					success: function (response) {
+						if(response.status == 200){
+							//var dataObject= response.data;
+							window.location.href="/index_admin.html";
+						}else{
+							$('.tips-con').empty();
+							$('.tips-con').html(response.message);
+							$('#btn-tips').trigger('click');
+						}
+
+					},
+					error: function (err) {
+					}
+				});
+			});
+        });
+	</script>
+</body>
+</html>

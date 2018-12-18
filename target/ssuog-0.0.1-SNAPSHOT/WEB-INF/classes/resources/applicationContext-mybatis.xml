@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd    
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd  
+        http://www.springframework.org/schema/aop  
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd  
+        http://www.springframework.org/schema/tx    
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">  
+  
+   <!--1 Introduces properties files for use in configuration placeholders -->
+    <context:property-placeholder location="classpath*:db.properties" />
+
+    <!--2 Configuring data sources -->
+    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <!--driver name -->
+        <property name="driverClass" value="${jdbc.driver}" />
+        <!-- url -->
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <!-- username -->
+        <property name="user" value="${jdbc.uid}" />
+        <!-- password -->
+        <property name="password" value="${jdbc.pwd}" />
+        <!-- The number of simultaneous connections c3p0 gets when the connection in the pool is exhausted  -->
+        <property name="acquireIncrement" value="5"></property>
+        <!-- Initial connection pool size -->
+        <property name="initialPoolSize" value="10"></property>
+        <!-- The minimum number of connections in the connection pool -->
+        <property name="minPoolSize" value="5"></property>
+        <!-- Maximum number of connections in the connection pool -->
+        <property name="maxPoolSize" value="20"></property>
+    </bean>
+  
+   <!--3 session factory bean sqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- data origin -->
+        <property name="dataSource" ref="datasource"></property>
+        <!-- alias -->
+        <property name="typeAliasesPackage" value="com.ssuog.model"></property>
+        <!-- Mapped file path -->
+        <property name="mapperLocations" value="classpath*:com/ssuog/mapper/*Mapper.xml"></property>
+    </bean>
+    
+    <!--4 Automatic scanning of object relational mapping -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--Specifies a session factory, which is omitted if only one is defined in the current context -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!-- Specifies the base package to automatically scan the interface to implement the interface -->
+        <property name="basePackage" value="com.ssuog.mapper"></property>
+    </bean>
+    
+    <!--5 Declarative transaction management -->
+    <!--Define a transaction manager that spring manages transactions for -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource"></property>
+    </bean>
+    <!--Supports annotation-driven transaction management, specifying a transaction manager -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--6 The container automatically scans IOC components  -->
+    <context:component-scan base-package="com.zhangguo.bookstore"></context:component-scan>
+    
+    <!--7 Aspectj supports automatic proxies to implement AOP functionality -->
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+  
+</beans>

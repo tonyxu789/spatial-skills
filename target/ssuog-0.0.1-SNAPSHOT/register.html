@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1, width=device-width" />
+	<title>Register</title>
+	<!--CSS-->
+	<link rel="stylesheet"href="js/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet"href="css/customStyles.css">
+	<!--JS-->
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body data-role="page" onload="">
+	<!--background pictures-->
+	<ul class="slideshow">
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+		<li>
+			<h3></h3>
+			<span></span>
+		</li>
+	</ul>
+	<!--register panel-->
+	<div id="pageRegister" class="register-pnl">
+		<div data-role="main" class="ui-content">
+			<!--Login successfully, jump to the page: index_admin.html-->
+			<div class="hd">Spatial Skill <span class="red">UoG</span></div>
+			<div class="ui-field-contain">
+				<label for="guid">GUID</label>
+				<input type="text" name="guid" id="guid">
+			</div>
+			<div class="ui-field-contain">
+				<label for="name">username</label>
+				<input type="text" name="name" id="name">
+			</div>
+			<div class="ui-field-contain">
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password">
+			</div>
+			<div class="ui-field-contain">
+				<label for="password2">Confirm Password</label>
+				<input type="password" name="password2" id="password2">
+			</div>
+			<div class="ui-field-contain">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+			</div>
+			<div class="btns-wrap">
+				<button data-role="button" data-transition="flow" class="ui-btn ui-corner-all ui-btn-active js-btn-ok">Register</button>
+				<a data-ajax="false" href="login.html" data-role="" data-transition="flip" class="ui-link">Back</a>
+			</div>
+			<!--Pop-up prompts-->
+			<a href="#popupCloseRight" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline undis" id="btn-tips">show popup</a>
+			<div data-role="popup" id="popupCloseRight" class="ui-content" style="max-width:480px">
+				    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+				<p class="tips-con"></p>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(function () {
+            //guid Repeated verification
+            $('body').on('blur', '#guid', function () {
+                var guid = $('#guid').val()||'';
+
+                if(guid==''){
+					//alert('please inout xxx');
+                    $('.tips-con').empty();
+                    $('.tips-con').html('please input GUID ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+
+                $.ajax({
+                    url: "/student/checkGuid.do",
+                    type: "post",
+                    data: {"guid": guid},
+					async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status == 200){
+                            
+                        }else{
+                            $('.tips-con').empty();
+                            $('.tips-con').html('GUID already exists, please login directly!')
+                            $('#btn-tips').trigger('click');
+                            $('##guid').val('');
+                        }
+
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            });
+
+            //Register
+            $('body').on('click', '.js-btn-ok', function () {
+                var guid = $('#guid').val()||'';
+                var name = $('#name').val()||'';
+                var psw = $('#password').val() || '';
+                var psw2 = $('#password2').val() || '';
+                var email = $('#email').val() || '';
+
+                if(guid==''){
+					//alert('please input xxx');
+                    $('.tips-con').empty();
+                    $('.tips-con').html('Please input GUID ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+                if(name==''){
+                    $('.tips-con').empty();
+                    $('.tips-con').html('Please input username ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+                if(psw==''){
+                    $('.tips-con').empty();
+                    $('.tips-con').html('Please input password ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+                if(psw2==''){
+                    $('.tips-con').empty();
+                    $('.tips-con').html('Please input confirm password ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+                if(psw!=psw2){
+                    $('.tips-con').empty();
+                    $('.tips-con').html('The passwords entered twice are not consistent, please re-enter them!')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }
+                if(email==''){
+                    $('.tips-con').empty();
+                    $('.tips-con').html('Please input email ！')
+                    $('#btn-tips').trigger('click');
+                    return false;
+                }else{
+					if(!(/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g.test(email))){
+                        $('.tips-con').empty();
+                        $('.tips-con').html('Please enter the correct email format!')
+                        $('#btn-tips').trigger('click');
+                        return false;
+					}
+				}
+
+                $.ajax({
+                    url: "/student/register.do",
+                    type: "post",
+                    data: {"guid": guid, "username": name, "password": psw, "email": email},
+//                        async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status == 200){
+                            //var dataObject= response.data;
+                            window.location.href="/login.html";
+                        }else{
+                            $('.tips-con').empty();
+                            $('.tips-con').html(response.message);
+                            $('#btn-tips').trigger('click');
+                        }
+
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            });
+
+        });
+	</script>
+</body>
+</html>

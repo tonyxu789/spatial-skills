@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+<generatorConfiguration>  
+      
+    <!-- <properties resource="init.properties"/> -->  
+      
+    <!-- Specifies the database connection driver address -->  
+    <classPathEntry  
+        location="E:\maven_rep\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" />  
+    <!-- A database, a context -->  
+    <context id="context1">  
+      
+        <commentGenerator>  
+            <!-- annotation -->  
+            <property name="suppressAllComments" value="true"></property>  
+            <!-- annotation timestamp-->  
+            <property name="suppressDate" value="true"></property>  
+        </commentGenerator>  
+        <!-- JDBC connection configuration -->  
+        <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/uog" driverClass="com.mysql.jdbc.Driver" password="1234" userId="root"/>  
+              
+        <!-- type conversion -->    
+        <javaTypeResolver>    
+            <!-- Whether or not bigDecimal is used, false automatically converts the following types（Long, Integer, Short, etc.） -->    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>    
+          
+        <!-- Generates the address of the entity class -->  
+        <javaModelGenerator targetPackage="com.ssuog.model"  
+            targetProject="G:\ws_demo\spring\ssuog Maven Webapp\src\main\java" />  
+              
+        <!-- Generate the mapper. XML file -->  
+        <sqlMapGenerator targetPackage="com.ssuog.mapper"  
+            targetProject="G:\ws_demo\spring\ssuog Maven Webapp\src\main\resources" />  
+          
+        <!-- Generate mapxml corresponding client(the interface dao) -->  
+        <javaClientGenerator targetPackage="com.ssuog.mapper"  
+            targetProject="G:\ws_demo\spring\ssuog Maven Webapp\src\main\java" type="XMLMAPPER" />  
+              
+        <table schema="uog" tableName="student"  domainObjectName="Student" enableCountByExample="false"    
+            enableDeleteByExample="false" enableSelectByExample="false"    
+            enableUpdateByExample="false">  
+        </table>  
+        <table schema="uog" tableName="quiz"  domainObjectName="Quiz" enableCountByExample="false"    
+            enableDeleteByExample="false" enableSelectByExample="false"    
+            enableUpdateByExample="false">  
+            <!-- domainObjectName  Specifies the name of the generated class -->  
+        </table>  
+    </context>  
+</generatorConfiguration>

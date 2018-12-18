@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1, width=device-width" />
+	<title>Student Quiz Score</title>
+	<!--CSS-->
+	<link rel="stylesheet"href="js/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet"href="css/customStyles.css">
+	<!--JS-->
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+	<!--pagebar-->
+	<link rel="stylesheet" href="plugin/jquerypagination/pagination.css">
+	<script src="plugin/jquerypagination/pagination.js"></script>
+</head>
+<body onload="">
+	<div data-role="page" class="student-quiz-score">
+		<div data-role="main" class="ui-content">
+			<div class=""><a href="index_admin.html" class="ui-btn ui-corner-all ui-btn-inline">Back</a></div>
+			<div class="score-list">
+				<table data-role="table" id="score-table" data-mode="reflow" class="ui-responsive">
+				  <thead>
+				  <tr>
+				      <th data-priority="1">guid</th>
+				      <th data-priority="3">score</th>
+				      <th data-priority="4">timetake(seconds)</th>
+				      <th data-priority="5">quiz available</th>
+				  </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th>2382495x</th>
+				      <td>70</td>
+				      <td>543</td>
+				      <td>
+						<button class="ui-btn ui-corner-all ui-btn-inline ui-btn-active" data-stuid="1">on</button>
+					  </td>
+				    </tr>
+				    </tr>
+				  </tbody>
+				</table>
+				<!--paging bar-->
+				<div class="ht-page"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function () {
+            //pagebar
+            var total = 0;//The total number of records
+			var pagesize = 10;//records per page
+			function fetchStuScore(num){
+			    //View the score record by GUID
+                $.ajax({
+                    url: "/admin/queryQuizInfo.do",
+                    type: "post",
+                    data: {"limit": pagesize, "offset": num * pagesize},
+					async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status == 200){
+                            total = response.total;
+
+                            var tbody = $('table tbody');
+                            var resultData = response.data;
+                            $('table tbody').empty();
+                            var rowData = '';
+                            for(var i=0; i<resultData.length; i++){
+                                var rowObj = resultData[i];
+                                rowData += '<tr>';
+                                rowData += '<th>'+rowObj.guid+'</th>';
+                                if(rowObj.score == -1){
+                                	 rowData += '<td></td>';
+                                }else {
+                                	 rowData += '<td>'+rowObj.score+'</td>';
+                                }
+                                rowData += '<td>'+rowObj.costtime+'</td>';
+                                rowData += '<td>';
+                                if(rowObj.quizavailable){
+                                    rowData += '<button class="ui-btn ui-corner-all ui-btn-inline ui-btn-active" data-stuid="'+rowObj.guid+'">on</button>';
+                                }else{
+                                    rowData += '<button class="ui-btn ui-corner-all ui-btn-inline" data-stuid="'+rowObj.guid+'">on</button>';
+                                }
+                                rowData += '</td>';
+                                rowData += '</tr>';
+							}
+							 $('table tbody').append(rowData);
+                       }else if(response.status == 403){
+							 window.location.href="/login.html";
+                       }else{
+                            alert('No score record data! ');
+                        }
+                    },
+                    error: function (err) {
+						window.location.href="/login.html";
+                    }
+                });
+			}
+
+			//The first page of data is loaded by default
+            fetchStuScore(0);
+
+			/*
+			 * Define the callback function
+			 * @param  number:page to jump
+			 * */
+            function pageChange(i) {
+                console.log("index is :" + i);
+                Pagination.Page($(".ht-page"), i, total, pagesize);
+                //todo Load table data
+                fetchStuScore(i);
+            }
+
+			/*
+			 * Initializing plug-in
+			 * @param  object:Page-turning container object
+			 * @param  function:callback function
+			 * */
+            Pagination.init($(".ht-page"), pageChange);
+
+			/*
+			 * first invoke
+			 * @param  object:Page-turning container object
+			 * @param  number:Current Page
+			 * @param  number:total number of pages
+			 * @param  number:Number of data bars per page
+			 * */
+            Pagination.Page($(".ht-page"), 0, total, pagesize);
+
+            function setStatus(obj, guid,quizavailable) {
+                $.ajax({
+                    url: "/admin/setQuizInfo.do",
+                    type: "post",
+                    data: {"guid": guid, "quizavailable": quizavailable},
+					async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.status == 200){
+                            if(quizavailable){
+                                $(obj).addClass('ui-btn-active');
+                            }else{
+                                $(obj).removeClass('ui-btn-active');
+                            }
+                        }else{
+                            alert('set quizavailable failed');
+                        }
+
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+
+            //Set up the students' supplementary test status
+            $('body').on('click','table .ui-btn', function () {
+                //Record student id
+                var stuid = $(this).attr('data-stuid');
+
+                if($(this).hasClass('ui-btn-active')){
+                    setStatus($(this), stuid,false);
+                }else{
+                    setStatus($(this), stuid,true);
+                }
+            });
+        });
+
+	</script>
+</body>
+</html>

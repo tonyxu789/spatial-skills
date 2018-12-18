@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1, width=device-width" />
+	<title>Student Quiz</title>
+	<!--CSS-->
+	<link rel="stylesheet"href="js/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet"href="css/customStyles.css">
+	<!--JS-->
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+	<!--pagebar-->
+	<link rel="stylesheet" href="plugin/jquerypagination/pagination.css">
+	<script src="plugin/jquerypagination/pagination.js"></script>
+</head>
+<body onload="">
+	<div data-role="page" class="student-quiz">
+		<div data-role="main" class="ui-content" id="quiz-container">
+			<h1>Spatial Skills Quiz</h1>
+			<div class="time-wrap">
+				<!--<span>Total Time：20 minutes</span>-->
+				<span class="count-down" id="time-left">Time Left：<em id="show_count">35 minutes 0 seconds</em></span><br />
+				<span class="count-down" id="got-score"></span>
+			</div>
+			<ul class="topics">
+				<!-- The first two pages are the introduction to the exam, and the last page is the thank you, which is not included in the number of questions -->
+				<!--introduction-->
+				<!--<li data-quesnum="1">
+					<div class="question">
+						<img src="img/qs/qs-01.jpg" alt="">
+					</div>
+					<div class="intro">
+						The first two pages are the introduction to the exam and you have 5 minutes to read the introduction and 30 minutes to complete the questions.
+					</div>
+					<div class="oper">
+						&lt;!&ndash;<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>&ndash;&gt;
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>-->
+				<li data-quesnum="2">
+					<div class="question">
+						<img src="img/qs/qs-02.jpg" alt="">
+					</div>
+					<div class="intro">The first two pages are the introduction to the exam, you have 5 minutes to read the introduction and 30 minutes to finish the questions.</div>
+					<div class="oper">
+						<!--<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>-->
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="3" class="undis">
+					<div class="question">
+						<img src="img/qs/qs-03.jpg" alt="">
+					</div>
+					<div class="intro">The first two pages are the introduction to the exam, you have 5 minutes to read the introduction and 30 minutes to finish the questions.</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<!--<li data-quesnum="4" class="undis">
+					<div class="question">
+						<img src="img/qs/qs-04.jpg" alt="">
+					</div>
+					<div class="intro">
+						The first two pages are the introduction to the exam and you have 5 minutes to read the introduction and 30 minutes to complete the questions.
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>-->
+				<!--questions(Set the correct answer to the question)-->
+				<li data-quesnum="5" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 1 :</div>
+					<div class="question">
+						<img src="img/qs/qs-05.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="6" class="effective-topics undis" data-correctoption="E">
+					<div class="question-seri">Question 2 :</div>
+					<div class="question">
+						<img src="img/qs/qs-06.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="7" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 3 :</div>
+					<div class="question">
+						<img src="img/qs/qs-07.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="8" class="effective-topics undis" data-correctoption="D">
+					<div class="question-seri">Question 4 :</div>
+					<div class="question">
+						<img src="img/qs/qs-08.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="9" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 5 :</div>
+					<div class="question">
+						<img src="img/qs/qs-09.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="10" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 6 :</div>
+					<div class="question">
+						<img src="img/qs/qs-10.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="11" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 7 :</div>
+					<div class="question">
+						<img src="img/qs/qs-11.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="12" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 8 :</div>
+					<div class="question">
+						<img src="img/qs/qs-12.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="13" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 9 :</div>
+					<div class="question">
+						<img src="img/qs/qs-13.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="14" class="effective-topics undis" data-correctoption="E">
+					<div class="question-seri">Question 10 :</div>
+					<div class="question">
+						<img src="img/qs/qs-14.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="15" class="effective-topics undis" data-correctoption="D">
+					<div class="question-seri">Question 11 :</div>
+					<div class="question">
+						<img src="img/qs/qs-15.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="16" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 12 :</div>
+					<div class="question">
+						<img src="img/qs/qs-16.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="17" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 13 :</div>
+					<div class="question">
+						<img src="img/qs/qs-17.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="18" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 14 :</div>
+					<div class="question">
+						<img src="img/qs/qs-18.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="19" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 15 :</div>
+					<div class="question">
+						<img src="img/qs/qs-19.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="20" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 16 :</div>
+					<div class="question">
+						<img src="img/qs/qs-20.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="21" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 17 :</div>
+					<div class="question">
+						<img src="img/qs/qs-21.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="22" class="effective-topics undis" data-correctoption="E">
+					<div class="question-seri">Question 18 :</div>
+					<div class="question">
+						<img src="img/qs/qs-22.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="23" class="effective-topics undis" data-correctoption="D">
+					<div class="question-seri">Question 19 :</div>
+					<div class="question">
+						<img src="img/qs/qs-23.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="24" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 20 :</div>
+					<div class="question">
+						<img src="img/qs/qs-24.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="25" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 21 :</div>
+					<div class="question">
+						<img src="img/qs/qs-25.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="26" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 22 :</div>
+					<div class="question">
+						<img src="img/qs/qs-26.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="27" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 23 :</div>
+					<div class="question">
+						<img src="img/qs/qs-27.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="28" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 24 :</div>
+					<div class="question">
+						<img src="img/qs/qs-28.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="29" class="effective-topics undis" data-correctoption="D">
+					<div class="question-seri">Question 25 :</div>
+					<div class="question">
+						<img src="img/qs/qs-29.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="30" class="effective-topics undis" data-correctoption="E">
+					<div class="question-seri">Question 26 :</div>
+					<div class="question">
+						<img src="img/qs/qs-30.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="31" class="effective-topics undis" data-correctoption="D">
+					<div class="question-seri">Question 27 :</div>
+					<div class="question">
+						<img src="img/qs/qs-31.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="32" class="effective-topics undis" data-correctoption="C">
+					<div class="question-seri">Question 28 :</div>
+					<div class="question">
+						<img src="img/qs/qs-32.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="33" class="effective-topics undis" data-correctoption="B">
+					<div class="question-seri">Question 29 :</div>
+					<div class="question">
+						<img src="img/qs/qs-33.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<li data-quesnum="34" class="effective-topics undis" data-correctoption="A">
+					<div class="question-seri">Question 30 :</div>
+					<div class="question">
+						<img src="img/qs/qs-34.jpg" alt="">
+					</div>
+					<div class="answers">
+						<span class="fli-radio" data-option="A">A</span>
+						<span class="fli-radio" data-option="A">B</span>
+						<span class="fli-radio" data-option="C">C</span>
+						<span class="fli-radio" data-option="D">D</span>
+						<span class="fli-radio" data-option="E">E</span>
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-next">Next</button>
+					</div>
+				</li>
+				<!--Thanks PAGE-->
+				<li data-quesnum="35" class="undis">
+					<div class="question">
+						<img src="img/qs/qs-35.jpg" alt="">
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev">Back</button>
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-hand">Submit</button>
+					</div>
+				</li>
+				
+				<li data-quesnum="36" class="undis">
+					<div class="question">
+						
+					</div>
+					<div class="oper">
+						<button class="ui-btn ui-corner-all ui-btn-inline js-btn-prev back-index">Back to homepage</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+	$(function () {
+			//check quizavailable
+			$.ajax({
+					url: "/student/queryQuizInfo.do",
+					type: "post",
+					data: {},
+//                        async: false,
+					dataType: "json",
+					success: function (response) {
+						if(response.status == 200){
+							
+						}else if(response.status == 403){
+							 window.location.href="/login.html";
+						}else{
+							alert(response.message);
+							window.location.href="/index.html";
+						}
+
+					},
+					error: function (err) {
+						window.location.href="/login.html";
+					}
+				});
+   			 
+
+		//1.end of the countdown, submit your papers 2. Submit the paper
+		var costTime = 2100;//Default is 35 minutes (in seconds)
+
+        /**
+		 * countdown
+         * @param totaltime
+         */
+		function countDown(totaltime){
+		    var initTotalTime = totaltime;//totaltime
+
+            totaltime = totaltime || 2100;
+		    var showObj = $('#show_count');
+		    var minuteVal = 0
+				,secondVal = 0;
+		    minuteVal = Math.floor(totaltime/60);
+		    secondVal = totaltime%60;
+            $('#show_count').html(minuteVal+' minutes '+secondVal+' seconds');
+            var countObj = setInterval(function(){
+                totaltime--;
+
+                costTime = initTotalTime-totaltime;//record timetake
+
+                minuteVal = Math.floor(totaltime/60);
+                secondVal = totaltime%60;
+                $('#show_count').html(minuteVal+' minutes '+secondVal+' seconds');
+                if(totaltime==0){
+                    clearInterval(countObj);
+					//time is over, Automatically submit the papers
+                    $('.topics .js-btn-hand').trigger('click');
+				}
+			},1000);
+		}
+
+		//choose answer
+        $("body").on('click', '.answers .fli-radio', function () {
+            $(this).addClass('on').siblings().removeClass('on');
+		});
+
+		//back button
+        $("body").on('click', '.topics .js-btn-prev', function () {
+            $(this).parents('li').prev().removeClass('undis').siblings().addClass('undis');
+        });
+		//next nutton
+        $("body").on('click', '.topics .js-btn-next', function () {
+			$(this).parents('li').next().removeClass('undis').siblings().addClass('undis');
+        });
+        
+        //back to index.html
+        $("body").on('click', '.back-index', function () {
+        	 window.location.href="/index.html";
+        });
+        
+        var costtime;
+        var submitObj;
+		//submit nutton
+        $("body").on('click', '.topics .js-btn-hand', function () {
+        	submitObj = $(this);
+			//submit the paper
+			var topicTotal = $('.effective-topics').length || 30; //questionnum
+			console.log('questionnum：'+topicTotal);
+			var rightNum = 0; //The students got the number of questions right
+			//Get answers to all questions
+			var answers = [];//format：q-a，for example：1-A,if no answer, is 1-0
+			$('.effective-topics').each(function () {
+				var realAnswer = $(this).attr('data-correctoption');//The default answer
+				var stuAnswer = $(this).find('.fli-radio.on');
+				if(stuAnswer.length>0 && stuAnswer.attr('data-option')==realAnswer){
+				    console.log(stuAnswer.attr('data-option')+'---'+realAnswer);
+                    rightNum++;
+				}
+			});
+
+			//todo submit timetake, score student id to the backend。
+			var correctRatio = (rightNum/topicTotal).toFixed(4) * 100;//Correct answer rate
+			//var stuScore = rightNum*3;
+			console.log('take:'+ costTime +'seconds，score:'+correctRatio);
+            $.ajax({
+                url: "/student/submitQuiz.do",
+                type: "post",
+                data: {"costtime": costTime, "scores": correctRatio},
+                      async: false,
+                dataType: "json",
+                success: function (response) {
+                    if(response.status == 200){
+                        //var dataObject= response.data;
+                        //window.location.href="/index.html";
+                        $(submitObj).parents('li').next().removeClass('undis').siblings().addClass('undis');
+                    	var temp = $('#show_count').html();
+                    	$('#time-left').empty();
+                    	$('#time-left').append('Time Left：<em>' + temp + '</em>');
+                    	$('#got-score').append('You got '+ correctRatio + '% of the questions right!!!');
+                    }else{
+                        alert('fail to submit!');
+                    }
+
+                },
+                error: function (err) {
+
+                }
+            });
+
+        });
+
+
+        function init(){
+            //load questions（There's only one set of questions, no dynamic loading）
+//            loadTopics(topicsArr);
+            //start countdown
+            countDown(2100);
+		}
+        init();
+
+    });
+	</script>
+</body>
+</html>

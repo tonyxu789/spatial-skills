@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssuog.mapper.QuizMapper" >
+  <resultMap id="BaseResultMap" type="com.ssuog.model.Quiz" >
+    <id column="guid" property="guid" jdbcType="VARCHAR" />
+    <result column="quizavailable" property="quizavailable" jdbcType="BIT" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="costtime" property="costtime" jdbcType="INTEGER" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    guid, quizavailable, score, costtime, updatetime
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quiz
+    where guid = #{guid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listQuizPages" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from quiz
+    order by guid desc
+    limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countQuizRecords" resultType="java.lang.Integer" parameterType="map" >
+    select count(1) from quiz
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quiz
+    where guid = #{guid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ssuog.model.Quiz" >
+    insert into quiz (guid, quizavailable, score, 
+      costtime, updatetime)
+    values (#{guid,jdbcType=VARCHAR}, #{quizavailable,jdbcType=BIT}, #{score,jdbcType=DOUBLE}, 
+      #{costtime,jdbcType=INTEGER},  #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ssuog.model.Quiz" >
+    insert into quiz
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guid != null" >
+        guid,
+      </if>
+      <if test="quizavailable != null" >
+        quizavailable,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="costtime != null" >
+        costtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guid != null" >
+        #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="quizavailable != null" >
+        #{quizavailable,jdbcType=BIT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="costtime != null" >
+        #{costtime,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssuog.model.Quiz" >
+    update quiz
+    <set >
+      <if test="quizavailable != null" >
+        quizavailable = #{quizavailable,jdbcType=BIT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="costtime != null" >
+        costtime = #{costtime,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where guid = #{guid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.ssuog.model.Quiz" >
+    update quiz
+    set quizavailable = #{quizavailable,jdbcType=BIT},
+      score = #{score,jdbcType=DOUBLE},
+      costtime = #{costtime,jdbcType=INTEGER},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where guid = #{guid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateQuizavailabeByGuid" parameterType="map" >
+    update quiz
+    set quizavailable = #{quizavailable,jdbcType=BIT}
+    where guid = #{guid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration  
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!-- Configure to print SQL to the console as well as lazy loading -->  
+    <settings>  
+        <setting name="logImpl" value="STDOUT_LOGGING" />  
+        <!-- Turn on the global switch for lazy loading -->  
+        <setting name="lazyLoadingEnabled" value="true" />  
+        <setting name="aggressiveLazyLoading" value="false" />  
+        <setting name="mapUnderscoreToCamelCase" value="true" />  
+    </settings>  
+    <!-- 为com.ssuog.model.User Set an alias,UserInfo -->  
+    <typeAliases>  
+        <typeAlias type="com.ssuog.model.User" alias="User"/>  
+    </typeAliases>  
+    <mappers>  
+       <package name="com.ssuog.mapper"/>
+    </mappers>  
+</configuration>

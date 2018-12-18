@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>paging for showing the record</title>
+    <link rel="stylesheet" href="pagination.css">
+</head>
+<body>
+<div class="ht-page"></div>
+                    
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+<!--plugins-->
+<script src="pagination.js"></script>
+
+<script typeof="text/javascript">
+    /*
+     * Define the callback function
+     * @param  number:page to jump
+     * */
+    function pageChange(i) {
+        alert("index is :" + i);
+        Pagination.Page($(".ht-page"), i, 10000, 10);
+    }
+
+    /*
+     * Initializing plug-in
+     * @param  object:Page-turning container object
+     * @param  function:callback function
+     * */
+    Pagination.init($(".ht-page"), pageChange);
+
+    /*
+    * First invoke
+    * @param  object:Page-turning container object
+    * @param  number:Purrent page
+    * @param  number:Total pages num
+    * @param  number:Number of data bars per page
+    * */
+    Pagination.Page($(".ht-page"), 3, 10000, 10);
+</script>
+</body>
+</html>

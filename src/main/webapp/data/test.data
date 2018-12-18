@@ -1,0 +1,25 @@
+﻿{
+  "status": 200,
+  "message": "operate successfully！",
+  "total": 100,
+  "data": [
+    {
+      "stuid": "1001",
+      "score":"70%",
+      "costtime": "600",
+      "quizavailabe": true
+    },
+    {
+      "stuid": "1002",
+      "score":"80%",
+      "costtime": "900",
+      "quizavailabe": true
+    },
+    {
+      "stuid": "1003",
+      "score":"50%",
+      "costtime": "700",
+      "quizavailabe": false
+    }
+  ]
+}
